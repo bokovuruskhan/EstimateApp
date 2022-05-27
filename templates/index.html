@@ -1,5 +1,36 @@
 {% extends "base.html" %}
 
 {% block content %}
-Test
+{% if current_project == None %}
+<div class="alert alert-danger" role="alert">
+    Выберите проект
+</div>
+{% else %}
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Название услуги</th>
+        <th scope="col">Цена</th>
+        <th scope="col">Наценка</th>
+        <th scope="col">Итоговая стоимость</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for service in current_project.services %}
+    <tr>
+        <th scope="row">{{ service.id }}</th>
+        <td>{{ service.name }}</td>
+        <td>{{ service.price }}р</td>
+        <td>{{ service.margin * 100 - 100 }}%</td>
+        <td>{{ service.margin * service.price }}р</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<div class="alert alert-success" role="alert">
+    Итоговая стоимость {{services_price_sum}}р
+</div>
+<button class="form-control">Распечатать смету</button>
+{% endif %}
 {% endblock %}

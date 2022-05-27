@@ -1,10 +1,71 @@
+<div class="modal fade" id="add_object_modal" tabindex="-1" aria-labelledby="add_object_modal_label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="add_object_modal_label">Добавление объекта</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/object" class="form " method="post">
+                    <input name="name" class="form-control" type="text" placeholder="Название объекта" required>
+                    <button type="submit" class="mt-2 form-control btn btn-success w-100">Добавить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% for object in objects %}
+<div class="modal fade" id="add_project_modal_{{object.id}}" tabindex="-1"
+     aria-labelledby="add_project_modal_{{object.id}}_label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="add_project_modal_{{object.id}}_label">Добавление проекта к
+                    "{{object.name}}"</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/project" class="form " method="post">
+                    <input name="object_id" value="{{object.id}}" hidden>
+                    <input name="name" class="form-control" type="text" placeholder="Название проекта" required>
+                    <button type="submit" class="mt-2 form-control btn btn-success w-100">Добавить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
 <div class="d-flex flex-column">
     <ul class="nav nav-pills flex-column mb-auto">
         <ul class="nav flex-column">
             <li class="h4 nav-item">
-                Объекты
+                <a href="/" class="navbar-brand">Объекты</a>
             </li>
         </ul>
         <hr>
+        {% for object in objects %}
+        <div class="dropdown mt-2 dropend">
+            <button class="btn w-100 btn-outline-secondary dropdown-toggle" type="button" id="{{object.id}}_dropdown"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                {{ object.name }}
+            </button>
+            <ul class="dropdown-menu p-3" aria-labelledby="{{object.id}}_dropdown">
+                {% for project in object.projects %}
+                <li><a class="dropdown-item" href="/project/{{project.id}}">{{ project.name }}</a></li>
+                {% endfor %}
+                <li>
+                    <button class="btn w-100" type="button" data-bs-toggle="modal"
+                            data-bs-target="#add_project_modal_{{object.id}}">
+                        + Добавить
+                    </button>
+                </li>
+            </ul>
+        </div>
+        {% endfor %}
+        <hr>
+        <button type="button" class="mt-1 btn btn-outline-success w-100" data-bs-toggle="modal"
+                data-bs-target="#add_object_modal">
+            Создать новый объект
+        </button>
     </ul>
 </div>
