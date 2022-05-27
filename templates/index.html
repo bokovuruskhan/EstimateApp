@@ -6,31 +6,72 @@
     Выберите проект
 </div>
 {% else %}
-<table class="table">
-    <thead>
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">Название услуги</th>
-        <th scope="col">Цена</th>
-        <th scope="col">Наценка</th>
-        <th scope="col">Итоговая стоимость</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for service in current_project.services %}
-    <tr>
-        <th scope="row">{{ service.id }}</th>
-        <td>{{ service.name }}</td>
-        <td>{{ service.price }}р</td>
-        <td>{{ service.margin * 100 - 100 }}%</td>
-        <td>{{ service.margin * service.price }}р</td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
-<div class="alert alert-success" role="alert">
-    Итоговая стоимость {{services_price_sum}}р
+<div class="container">
+
+    <ul class="nav nav-tabs" id="myTab">
+        <li class="nav-item">
+            <a href="#estimate_plan" class="nav-link active" data-bs-toggle="tab">Бюджетная смета</a>
+        </li>
+        <li class="nav-item">
+            <a href="#estimate_plan_client" class="nav-link" data-bs-toggle="tab">Смета заказчика</a>
+        </li>
+
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="estimate_plan">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Название услуги</th>
+                    <th scope="col">Цена</th>
+                    <th scope="col">Наценка</th>
+                    <th scope="col">Итоговая стоимость</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for service in current_project.services %}
+                <tr>
+                    <th scope="row">{{ service.id }}</th>
+                    <td>{{ service.name }}</td>
+                    <td>{{ service.price }}р</td>
+                    <td>{{ service.margin * 100 - 100 }}%</td>
+                    <td>{{ service.margin * service.price }}р</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="alert alert-success" role="alert">
+                Итоговая стоимость {{services_price_sum}}р
+            </div>
+            <button class="form-control">Распечатать смету</button>
+        </div>
+        <div class="tab-pane fade" id="estimate_plan_client">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Название услуги</th>
+                    <th scope="col">Цена</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for service in current_project.services %}
+                <tr>
+                    <th scope="row">{{ service.id }}</th>
+                    <td>{{ service.name }}</td>
+                    <td>{{service.margin * service.price }}р</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="alert alert-success" role="alert">
+                Итоговая стоимость {{services_price_sum}}р
+            </div>
+            <button class="form-control">Распечатать смету</button>
+        </div>
+    </div>
 </div>
-<button class="form-control">Распечатать смету</button>
 {% endif %}
+
 {% endblock %}
