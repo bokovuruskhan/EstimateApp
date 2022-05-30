@@ -2,6 +2,7 @@ from flask import render_template
 from flask import request
 from config import MyApp
 from model import Object, Project
+import admin
 
 my_app = MyApp()
 app = my_app.app
@@ -43,6 +44,8 @@ def index():
     return render_template("index.html", current_project=current_project, services_price_sum=services_price_sum,
                            objects=database.session.query(Object).all())
 
+
 if __name__ == '__main__':
     database.create_all()
+    admin.init()
     app.run()
