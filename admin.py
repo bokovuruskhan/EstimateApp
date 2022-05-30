@@ -4,8 +4,6 @@ from werkzeug.utils import redirect
 
 from model import *
 
-from config import MyApp
-
 app = MyApp.app
 database = MyApp.database
 

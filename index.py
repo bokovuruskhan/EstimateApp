@@ -37,11 +37,7 @@ def set_current_project(project_id):
 
 @app.route("/")
 def index():
-    services_price_sum = 0
-    if current_project is not None:
-        for service in current_project.services:
-            services_price_sum += service.price * service.margin
-    return render_template("index.html", current_project=current_project, services_price_sum=services_price_sum,
+    return render_template("index.html", current_project=current_project,
                            objects=database.session.query(Object).all())
 
 

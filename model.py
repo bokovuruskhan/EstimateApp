@@ -18,6 +18,12 @@ class Project(database.Model):
     object_id = database.Column(database.Integer, database.ForeignKey('object.id'), nullable=False)
     services = database.relationship("Service", secondary="ProjectServices")
 
+    def get_services_sum(self):
+        services_price_sum = 0
+        for service in self.services:
+            services_price_sum += service.price * service.margin
+        return services_price_sum
+
 
 class Service(database.Model):
     id = database.Column(database.Integer, primary_key=True)

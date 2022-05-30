@@ -42,7 +42,7 @@
                 </tbody>
             </table>
             <div class="alert alert-success" role="alert">
-                Итоговая стоимость {{services_price_sum}}р
+                Итоговая стоимость {{current_project.get_services_sum()}}р
             </div>
             <button class="form-control">Распечатать смету</button>
         </div>
@@ -66,7 +66,7 @@
                 </tbody>
             </table>
             <div class="alert alert-success" role="alert">
-                Итоговая стоимость {{services_price_sum}}р
+                Итоговая стоимость {{current_project.get_services_sum()}}р
             </div>
             <button class="form-control">Распечатать смету</button>
         </div>
