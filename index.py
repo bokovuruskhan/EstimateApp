@@ -1,7 +1,7 @@
 from flask import render_template
 from flask import request
 from config import MyApp
-from model import Object, Project
+from model import Object, Project, Service
 import admin
 
 my_app = MyApp()
@@ -35,10 +35,19 @@ def set_current_project(project_id):
     return index()
 
 
+@app.route("/project/service/add", methods=["POST"])
+def add_service_in_current_project():
+    global current_project
+    service_id = int(request.form.get("service_id"))
+    current_project.services.append(database.session.query(Service).filter(Service.id == service_id).first())
+    return index()
+
+
 @app.route("/")
 def index():
     return render_template("index.html", current_project=current_project,
-                           objects=database.session.query(Object).all())
+                           objects=database.session.query(Object).all(),
+                           services=database.session.query(Service).all())
 
 
 if __name__ == '__main__':

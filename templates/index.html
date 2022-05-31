@@ -35,12 +35,31 @@
                     <th scope="row">{{ service.id }}</th>
                     <td>{{ service.name }}</td>
                     <td>{{ service.price }}р</td>
-                    <td>{{ service.margin * 100 - 100 }}%</td>
+                    <td>{{ ((service.margin - 1) * 100)|round(2, 'floor') }}%</td>
                     <td>{{ service.margin * service.price }}р</td>
                 </tr>
                 {% endfor %}
                 </tbody>
+
+
             </table>
+            <form class="form-group m-2" method="post" action="/project/service/add">
+                <div class="row">
+                    <div class="col">
+                        <select class="js-chosen" name="service_id" required>
+                            <option value=""></option>
+                            {% for service in services %}
+                            <option value="{{service.id}}">{{service.name}}, {{service.price}}р</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-2">
+                        <button type="submit" class="btn btn-sm btn-outline-success form-control form-group">+ Добавить
+                            услугу
+                        </button>
+                    </div>
+                </div>
+            </form>
             <div class="alert alert-success" role="alert">
                 Итоговая стоимость {{current_project.get_services_sum()}}р
             </div>
@@ -71,7 +90,19 @@
             <button class="form-control">Распечатать смету</button>
         </div>
     </div>
+
 </div>
 {% endif %}
 
+
+<script>
+$(document).ready(function(){
+	$('.js-chosen').chosen({
+		width: '100%',
+		no_results_text: 'Совпадений не найдено',
+		placeholder_text_single: 'Выберите услугу'
+	});
+});
+
+</script>
 {% endblock %}
