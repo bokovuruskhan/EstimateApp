@@ -15,10 +15,25 @@ class Object(database.Model):
         return self.name
 
 
+class Company(database.Model):
+    id = database.Column(database.Integer, primary_key=True)
+    name = database.Column(database.String(255), nullable=False)
+    index = database.Column(database.String(255), nullable=False)
+    city = database.Column(database.String(255), nullable=False)
+    address = database.Column(database.String(255), nullable=False)
+    phone = database.Column(database.String(255), nullable=False)
+    site = database.Column(database.String(255), nullable=False)
+    okpo = database.Column(database.String(255), nullable=False)
+    okdp = database.Column(database.String(255), nullable=False)
+    projects = database.relationship('Project',
+                                     backref=database.backref('company', lazy=True))
+
+
 class Project(database.Model):
     id = database.Column(database.Integer, primary_key=True)
     name = database.Column(database.String(255), nullable=False)
     object_id = database.Column(database.Integer, database.ForeignKey('object.id'), nullable=False)
+    company_id = database.Column(database.Integer, database.ForeignKey('company.id'), nullable=True)
     services = database.relationship("Service", secondary="ProjectServices")
 
     def get_services_price_sum(self):

@@ -6,7 +6,7 @@ from database.util import save, get_all, find_by_id
 from report import generate_client_report, generate_manager_report
 import admin
 from config import MyApp
-from database.model import Object, Project, Service
+from database.model import Object, Project, Service, Company
 
 app = MyApp.app
 database = MyApp.database
@@ -64,6 +64,34 @@ def add_project():
 @app.route("/project/<project_id>")
 def set_current_project(project_id):
     CurrentProject.get_instance().set_current_project(find_by_id(Project, project_id))
+    return index()
+
+
+@app.route("/company/save", methods=["POST"])
+def save_company():
+    if CurrentProject.get_instance().get_current_project().company is None:
+        company = Company(name=request.form.get("name"),
+                          index=request.form.get("index"),
+                          city=request.form.get("city"),
+                          address=request.form.get("address"),
+                          phone=request.form.get("phone"),
+                          site=request.form.get("site"),
+                          okpo=request.form.get("okpo"),
+                          okdp=request.form.get("okdp"))
+        CurrentProject.get_instance().get_current_project().company = company
+        save(CurrentProject.get_instance().get_current_project())
+    else:
+        company = CurrentProject.get_instance().get_current_project().company
+        company.name = request.form.get("name")
+        company.index = request.form.get("index")
+        company.city = request.form.get("city")
+        company.address = request.form.get("address")
+        company.phone = request.form.get("phone")
+        company.site = request.form.get("site")
+        company.okpo = request.form.get("okpo")
+        company.okdp = request.form.get("okdp")
+        CurrentProject.get_instance().get_current_project().company = company
+        save(CurrentProject.get_instance().get_current_project())
     return index()
 
 

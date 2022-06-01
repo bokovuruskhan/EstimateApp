@@ -17,6 +17,7 @@ def config():
     admin.add_view(ModelView(Project, database.session))
     admin.add_view(ModelView(Service, database.session))
     admin.add_view(ModelView(Group, database.session))
+    admin.add_view(ModelView(Company, database.session))
 
 
 def read_services_from_csv(file_name):
