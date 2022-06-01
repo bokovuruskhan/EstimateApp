@@ -13,16 +13,16 @@ database = MyApp.database
 
 def config():
     admin = Admin(app, name='EstimateApp', template_mode='bootstrap3')
-    admin.add_view(ModelView(Object, database.session))
-    admin.add_view(ModelView(Project, database.session))
-    admin.add_view(ModelView(Service, database.session))
-    admin.add_view(ModelView(Group, database.session))
-    admin.add_view(ModelView(Company, database.session))
+    admin.add_view(ModelView(Object, database.session, "Объекты"))
+    admin.add_view(ModelView(Project, database.session, "Проекты"))
+    admin.add_view(ModelView(Service, database.session, "Услуги"))
+    admin.add_view(ModelView(Group, database.session, "Группа услуг"))
+    admin.add_view(ModelView(Company, database.session, "Компании"))
 
 
 def read_services_from_csv(file_name):
     with open(get_upload_file_path(file_name), encoding=MyApp.ENCODING) as csvfile:
-        reader = csv.reader(csvfile,delimiter=";")
+        reader = csv.reader(csvfile, delimiter=";")
         for row in reader:
             save(Service(name=row[0], group=get_group_by_name(row[1]), price=int(row[2]), margin=float(row[3])))
 
