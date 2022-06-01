@@ -9,7 +9,10 @@ class Object(database.Model):
     id = database.Column(database.Integer, primary_key=True)
     name = database.Column(database.String(255), nullable=False)
     projects = database.relationship('Project',
-                                     backref=database.backref('projects', lazy=True))
+                                     backref=database.backref('object', lazy=True))
+
+    def __str__(self):
+        return self.name
 
 
 class Project(database.Model):
@@ -24,6 +27,19 @@ class Project(database.Model):
             services_price_sum += service.price * service.margin
         return services_price_sum
 
+    def __str__(self):
+        return self.name
+
+
+class Group(database.Model):
+    id = database.Column(database.Integer, primary_key=True)
+    name = database.Column(database.String(255), nullable=False)
+    services = database.relationship('Service',
+                                     backref=database.backref('group', lazy=True))
+
+    def __str__(self):
+        return self.name
+
 
 class Service(database.Model):
     id = database.Column(database.Integer, primary_key=True)
@@ -31,6 +47,10 @@ class Service(database.Model):
     price = database.Column(database.REAL, nullable=False)
     margin = database.Column(database.REAL, nullable=False, default=0.0)
     projects = database.relationship("Project", secondary="ProjectServices")
+    group_id = database.Column(database.Integer, database.ForeignKey('group.id'), nullable=False)
+
+    def __str__(self):
+        return self.name
 
 
 class ProjectServices(database.Model):

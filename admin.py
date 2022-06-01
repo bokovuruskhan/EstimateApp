@@ -45,3 +45,4 @@ def init():
     admin.add_view(ModelView(Object, database.session))
     admin.add_view(ModelView(Project, database.session))
     admin.add_view(ModelView(Service, database.session))
+    admin.add_view(ModelView(Group, database.session))
