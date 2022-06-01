@@ -100,14 +100,22 @@
         <div class="tab-pane fade" id="project_company_tab">
             <form action="/company/save" method="post" class="form-group border shadow mt-2 p-2">
                 {% if current_project.company %}
-                <input type="text" name="name" value="{{current_project.company.name}}" placeholder="Название" class="mb-2 form-control w-100" required>
-                <input type="text" name="index" value="{{current_project.company.index}}" placeholder="Индекс" class="mb-2 form-control w-100" required>
-                <input type="text" name="city" value="{{current_project.company.city}}" placeholder="Город" class="mb-2 form-control w-100" required>
-                <input type="text" name="address" value="{{current_project.company.address}}" placeholder="Адрес" class="mb-2 form-control w-100" required>
-                <input type="tel" name="phone" value="{{current_project.company.phone}}" placeholder="Телефон" class="mb-2 form-control w-100" required>
-                <input type="url" name="site" value="{{current_project.company.site}}" placeholder="Сайт" class="mb-2 form-control w-100" required>
-                <input type="text" name="okpo" value="{{current_project.company.okpo}}" placeholder="ОКПО" class="mb-2 form-control w-100" required>
-                <input type="text" name="okdp" value="{{current_project.company.okdp}}" placeholder="ОКДП" class="mb-2 form-control w-100" required>
+                <input type="text" name="name" value="{{current_project.company.name}}" placeholder="Название"
+                       class="mb-2 form-control w-100" required>
+                <input type="text" name="index" value="{{current_project.company.index}}" placeholder="Индекс"
+                       class="mb-2 form-control w-100" required>
+                <input type="text" name="city" value="{{current_project.company.city}}" placeholder="Город"
+                       class="mb-2 form-control w-100" required>
+                <input type="text" name="address" value="{{current_project.company.address}}" placeholder="Адрес"
+                       class="mb-2 form-control w-100" required>
+                <input type="tel" name="phone" value="{{current_project.company.phone}}" placeholder="Телефон"
+                       class="mb-2 form-control w-100" required>
+                <input type="url" name="site" value="{{current_project.company.site}}" placeholder="Сайт"
+                       class="mb-2 form-control w-100" required>
+                <input type="text" name="okpo" value="{{current_project.company.okpo}}" placeholder="ОКПО"
+                       class="mb-2 form-control w-100" required>
+                <input type="text" name="okdp" value="{{current_project.company.okdp}}" placeholder="ОКДП"
+                       class="mb-2 form-control w-100" required>
                 <button type="submit" class="mb-2 form-control w-100 btn btn-outline-dark">Обновить</button>
                 {% else %}
                 <input type="text" name="name" placeholder="Название" class="mb-2 form-control w-100" required>
@@ -125,7 +133,8 @@
         <div class="tab-pane fade" id="project_manager_tab">
             <form action="/manager/save" method="post" class="form-group border shadow mt-2 p-2">
                 {% if current_project.manager %}
-                <input type="text" name="name" value="{{current_project.company.name}}" placeholder="Название" class="mb-2 form-control w-100" required>
+                <input type="text" name="name" value="{{current_project.manager.name}}" placeholder="Имя"
+                       class="mb-2 form-control w-100" required>
                 <button type="submit" class="mb-2 form-control w-100 btn btn-outline-dark">Обновить</button>
                 {% else %}
                 <input type="text" name="name" placeholder="Имя" class="mb-2 form-control w-100" required>
@@ -147,6 +156,7 @@ $(document).ready(function(){
 		placeholder_text_single: 'Выберите услугу'
 	});
 });
+
 
 
 
