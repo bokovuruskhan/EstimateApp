@@ -24,6 +24,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Название услуги</th>
+                    <th scope="col">Группа</th>
                     <th scope="col">Цена</th>
                     <th scope="col">Наценка</th>
                     <th scope="col">Итоговая стоимость</th>
@@ -34,6 +35,7 @@
                 <tr>
                     <th scope="row">{{ service.id }}</th>
                     <td>{{ service.name }}</td>
+                    <th>{{ service.group }}</th >
                     <td>{{ service.price }}р</td>
                     <td>{{ ((service.margin - 1) * 100)|round(2, 'floor') }}%</td>
                     <td>{{ service.margin * service.price }}р</td>
@@ -63,7 +65,7 @@
             <div class="alert alert-success" role="alert">
                 Итоговая стоимость {{current_project.get_services_sum()}}р
             </div>
-            <button class="form-control">Распечатать смету</button>
+            <a href="/report/manager" class="btn btn-outline-dark form-control">Распечатать смету</a>
         </div>
         <div class="tab-pane fade" id="estimate_plan_client">
             <table class="table">
@@ -87,7 +89,7 @@
             <div class="alert alert-success" role="alert">
                 Итоговая стоимость {{current_project.get_services_sum()}}р
             </div>
-            <button class="form-control">Распечатать смету</button>
+            <a href="/report/client" class="btn btn-outline-dark form-control">Распечатать смету</a>
         </div>
     </div>
 

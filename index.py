@@ -1,6 +1,6 @@
 import datetime
 
-from flask import render_template
+from flask import render_template, send_file
 from flask import request
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfbase import pdfmetrics
@@ -20,7 +20,7 @@ current_project = None
 pdfmetrics.registerFont(TTFont("Piazzolla", "reportlab/piazzolla.ttf"))
 
 
-def generate_estimate_report(project_id):
+def generate_estimate_manager_report(project_id):
     project = database.session.query(Project).filter(Project.id == project_id).first()
 
     filepath = app.config["UPLOAD_FOLDER"] + "/" + f"{datetime.datetime.now().date()}_report.pdf"
@@ -32,7 +32,7 @@ def generate_estimate_report(project_id):
     my_canvas.drawString(500, 750, f"{datetime.datetime.now().date()}")
     my_canvas.line(480, 747, 580, 747)
     my_canvas.drawString(275, 725, 'Итоговая стоимость:')
-    my_canvas.drawString(500, 725, f"{10000}руб")
+    my_canvas.drawString(500, 725, f"{current_project.get_services_sum()}руб")
     my_canvas.line(408, 723, 580, 723)
     my_canvas.drawString(30, 703, 'Менеджер:')
     my_canvas.line(120, 700, 580, 700)
@@ -43,7 +43,7 @@ def generate_estimate_report(project_id):
         print("sss")
         my_canvas.drawString(120, y, f"{service.name}")
         my_canvas.drawString(480, y, f"{service.price}руб")
-        my_canvas.drawString(360, y, f"{(service.margin * 100) - 100}&")
+        my_canvas.drawString(360, y, f"{(service.margin * 100) - 100}%")
         my_canvas.line(120, y - 5, 580, y - 5)
         y -= 30
 
@@ -63,7 +63,7 @@ def generate_estimate_client_report(project_id):
     my_canvas.drawString(500, 750, f"{datetime.datetime.now().date()}")
     my_canvas.line(480, 747, 580, 747)
     my_canvas.drawString(275, 725, 'Итоговая стоимость:')
-    my_canvas.drawString(500, 725, f"{10000}руб")
+    my_canvas.drawString(500, 725, f"{current_project.get_services_sum()}руб")
     my_canvas.line(408, 723, 580, 723)
     my_canvas.drawString(30, 703, 'Менеджер:')
     my_canvas.line(120, 700, 580, 700)
@@ -79,6 +79,16 @@ def generate_estimate_client_report(project_id):
 
     my_canvas.save()
     return filepath
+
+
+@app.route("/report/client")
+def report_client():
+    return send_file(generate_estimate_client_report(current_project.id), attachment_filename='report.pdf')
+
+
+@app.route("/report/manager")
+def report_manager():
+    return send_file(generate_estimate_manager_report(current_project.id), attachment_filename='report.pdf')
 
 
 @app.route("/object", methods=["POST"])
