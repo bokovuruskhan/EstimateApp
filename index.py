@@ -37,12 +37,12 @@ class CurrentProject:
 
 
 @app.route("/report/client")
-def report_client():
+def get_client_report():
     return send_file(generate_client_report(CurrentProject.get_instance().get_current_project()))
 
 
 @app.route("/report/manager")
-def report_manager():
+def get_manager_report():
     return send_file(generate_manager_report(CurrentProject.get_instance().get_current_project()))
 
 
