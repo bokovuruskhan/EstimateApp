@@ -29,11 +29,19 @@ class Company(database.Model):
                                      backref=database.backref('company', lazy=True))
 
 
+class Manager(database.Model):
+    id = database.Column(database.Integer, primary_key=True)
+    name = database.Column(database.String(255), nullable=False)
+    projects = database.relationship('Project',
+                                     backref=database.backref('manager', lazy=True))
+
+
 class Project(database.Model):
     id = database.Column(database.Integer, primary_key=True)
     name = database.Column(database.String(255), nullable=False)
     object_id = database.Column(database.Integer, database.ForeignKey('object.id'), nullable=False)
     company_id = database.Column(database.Integer, database.ForeignKey('company.id'), nullable=True)
+    manager_id = database.Column(database.Integer, database.ForeignKey('manager.id'), nullable=True)
     services = database.relationship("Service", secondary="ProjectServices")
 
     def get_services_price_sum(self):

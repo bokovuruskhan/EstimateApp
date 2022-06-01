@@ -18,6 +18,9 @@
         <li class="nav-item">
             <a href="#project_company_tab" class="nav-link" data-bs-toggle="tab">Реквизиты</a>
         </li>
+        <li class="nav-item">
+            <a href="#project_manager_tab" class="nav-link" data-bs-toggle="tab">Менеджер</a>
+        </li>
 
     </ul>
     <div class="tab-content">
@@ -115,6 +118,17 @@
                 <input type="url" name="site" placeholder="Сайт" class="mb-2 form-control w-100" required>
                 <input type="text" name="okpo" placeholder="ОКПО" class="mb-2 form-control w-100" required>
                 <input type="text" name="okdp" placeholder="ОКДП" class="mb-2 form-control w-100" required>
+                <button type="submit" class="mb-2 form-control w-100 btn btn-outline-dark">Сохранить</button>
+                {% endif %}
+            </form>
+        </div>
+        <div class="tab-pane fade" id="project_manager_tab">
+            <form action="/manager/save" method="post" class="form-group border shadow mt-2 p-2">
+                {% if current_project.manager %}
+                <input type="text" name="name" value="{{current_project.company.name}}" placeholder="Название" class="mb-2 form-control w-100" required>
+                <button type="submit" class="mb-2 form-control w-100 btn btn-outline-dark">Обновить</button>
+                {% else %}
+                <input type="text" name="name" placeholder="Имя" class="mb-2 form-control w-100" required>
                 <button type="submit" class="mb-2 form-control w-100 btn btn-outline-dark">Сохранить</button>
                 {% endif %}
             </form>

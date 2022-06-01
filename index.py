@@ -6,7 +6,7 @@ from database.util import save, get_all, find_by_id
 from report import generate_client_report, generate_manager_report
 import admin
 from config import MyApp
-from database.model import Object, Project, Service, Company
+from database.model import Object, Project, Service, Company, Manager
 
 app = MyApp.app
 database = MyApp.database
@@ -90,8 +90,20 @@ def save_company():
         company.site = request.form.get("site")
         company.okpo = request.form.get("okpo")
         company.okdp = request.form.get("okdp")
-        CurrentProject.get_instance().get_current_project().company = company
+        save(company)
+    return index()
+
+
+@app.route("/manager/save", methods=["POST"])
+def save_manager():
+    if CurrentProject.get_instance().get_current_project().manager is None:
+        manager = Manager(name=request.form.get("name"))
+        CurrentProject.get_instance().get_current_project().manager = manager
         save(CurrentProject.get_instance().get_current_project())
+    else:
+        manager = CurrentProject.get_instance().get_current_project().manager
+        manager.name = request.form.get("name")
+        save(manager)
     return index()
 
 
