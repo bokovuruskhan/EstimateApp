@@ -10,6 +10,7 @@ from database.model import Object, Project, Service, Company, Manager
 
 app = MyApp.app
 database = MyApp.database
+babel = MyApp.babel
 
 
 class CurrentProject:
@@ -113,6 +114,11 @@ def add_service_in_current_project():
     CurrentProject.get_instance().get_current_project().services.append(find_by_id(Service, service_id))
     save(CurrentProject.get_instance().get_current_project())
     return index()
+
+
+@babel.localeselector
+def get_locale():
+    return "ru"
 
 
 @app.route("/")

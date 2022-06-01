@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_babelex import Babel
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -10,6 +11,7 @@ class MyApp:
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config["UPLOAD_FOLDER"] = "upload"
     app.config["REPORT_FOLDER"] = "report"
+    babel = Babel(app)
     database = SQLAlchemy(app)
     ENCODING = "UTF-8"
     FONT_NAME = "Piazzolla"
