@@ -35,9 +35,9 @@
                 <tr>
                     <th scope="row">{{ service.id }}</th>
                     <td>{{ service.name }}</td>
-                    <th>{{ service.group }}</th >
+                    <th>{{ service.group }}</th>
                     <td>{{ service.price }}р</td>
-                    <td>{{ ((service.margin - 1) * 100)|round(2, 'floor') }}%</td>
+                    <td>{{ service.get_margin_percent_str() }}</td>
                     <td>{{ service.margin * service.price }}р</td>
                 </tr>
                 {% endfor %}
@@ -63,7 +63,7 @@
                 </div>
             </form>
             <div class="alert alert-success" role="alert">
-                Итоговая стоимость {{current_project.get_services_sum()}}р
+                Итоговая стоимость {{current_project.get_services_price_sum()}}р
             </div>
             <a href="/report/manager" class="btn btn-outline-dark form-control">Распечатать смету</a>
         </div>
@@ -87,7 +87,7 @@
                 </tbody>
             </table>
             <div class="alert alert-success" role="alert">
-                Итоговая стоимость {{current_project.get_services_sum()}}р
+                Итоговая стоимость {{current_project.get_services_price_sum()}}р
             </div>
             <a href="/report/client" class="btn btn-outline-dark form-control">Распечатать смету</a>
         </div>
@@ -105,6 +105,7 @@ $(document).ready(function(){
 		placeholder_text_single: 'Выберите услугу'
 	});
 });
+
 
 </script>
 {% endblock %}
