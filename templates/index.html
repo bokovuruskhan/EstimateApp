@@ -37,8 +37,8 @@
                     <td>{{ service.name }}</td>
                     <th>{{ service.group }}</th>
                     <td>{{ service.price }}р</td>
-                    <td>{{ service.get_margin_percent_str() }}</td>
-                    <td>{{ service.margin * service.price }}р</td>
+                    <td>{{ service.get_margin_percent_str() }}  </td>
+                    <td>{{ service.get_margin_price() }}р</td>
                 </tr>
                 {% endfor %}
                 </tbody>
@@ -81,7 +81,7 @@
                 <tr>
                     <th scope="row">{{ service.id }}</th>
                     <td>{{ service.name }}</td>
-                    <td>{{service.margin * service.price }}р</td>
+                    <td>{{ service.get_margin_price() }}р</td>
                 </tr>
                 {% endfor %}
                 </tbody>

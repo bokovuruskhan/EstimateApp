@@ -25,7 +25,7 @@ class Project(database.Model):
         services_price_sum = 0
         for service in self.services:
             services_price_sum += service.price * service.margin
-        return services_price_sum
+        return round(services_price_sum, 2)
 
     def __str__(self):
         return self.name
@@ -51,6 +51,9 @@ class Service(database.Model):
 
     def get_margin_percent_str(self):
         return f"{round((self.margin - 1) * 100, 2)}%"
+
+    def get_margin_price(self):
+        return round(self.price * self.margin, 2)
 
     def __str__(self):
         return self.name
